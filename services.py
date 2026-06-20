@@ -86,8 +86,8 @@ def record_maintenance(yacht_id, date, mtype, cost):
         raise ValueError(f"船只 {yacht_id} 不存在")
 
     yacht = data["yachts"][yacht_id]
-    if yacht["status"] == "维修":
-        raise ValueError(f"船只 {yacht_id} 当前正在维修中，不能重复维护")
+    if yacht["status"] not in ("可用", "停用"):
+        raise ValueError(f"船只 {yacht_id} 当前状态为 {yacht['status']}，只有可用或停用状态才能维护")
 
     yacht["status"] = "维修"
 
